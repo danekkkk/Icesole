@@ -1,0 +1,16 @@
+.heroSection {
+  width: 100%;
+  height: 550px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 60%;
+  padding: 42px 156px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.heroMainHeading,
+.heroSubheading {
+  color: var(--color-grey-100);
+}

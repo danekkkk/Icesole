@@ -1,0 +1,30 @@
+body {
+  --font-size-default: 16px;
+
+  --font-heading-0: 56px;
+  --font-heading-1: 48px;
+  --font-heading-2: 32px;
+  --font-heading-3: 22px;
+  --font-heading-4: 18px;
+  --font-heading-5: 14px;
+  --font-heading-6: 12px;
+
+  --font-paragraph-12: 12px;
+  --font-paragraph-14: 14px;
+  --font-paragraph-default: var(--font-size-default);
+  --font-paragraph-18: 18px;
+
+  --font-family-default: "Lato", sans-serif;
+
+  --color-primary-300: #fdc75e73;
+  --color-primary-500: #fdc75e;
+  --color-primary-700: #deaa44;
+
+  -color-discount: #cf1b2b;
+
+  --color-grey-100: #f2f2f2;
+  --color-grey-300: #e8e8e8;
+  --color-grey-500: #8b8b8b;
+  --color-grey-700: #515151;
+  --color-grey-900: #1a1a1a;
+}

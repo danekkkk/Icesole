@@ -1,0 +1,20 @@
+.mainMenu {
+  display: flex;
+  flex-direction: row;
+  gap: 48px;
+  padding: 12px;
+}
+
+.mainMenu li a {
+  padding-bottom: 4px;
+  color: var(--color-grey-900);
+  font-size: var(--font-paragraph-18);
+}
+
+.mainMenu li a:global(.active) {
+  border-bottom: 2px solid var(--color-grey-900);
+}
+
+.active {
+  border-bottom: 1px solid var(--color-grey-900);
+}

@@ -1,0 +1,93 @@
+/* footer container */
+.footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 52px 150px;
+  border-top: 2px solid var(--color-grey-100);
+}
+
+/* definition of the top and the middle part of the footer */
+.footerSectionTop,
+.footerSectionMid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footerSectionTop {
+  min-width: 25%;
+  margin-bottom: 52px;
+}
+
+.footerSectionMid {
+  min-width: 50%;
+}
+
+/* styles for each footer's li */
+.footerLinks li {
+  margin-bottom: 8px;
+}
+
+/* styles for each footer's social media links */
+.footerSocialMediaLinks {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.footerSocialMediaLinks li {
+  margin-top: 12px;
+}
+
+.footerSocialMediaLinks li a:hover svg {
+  fill: var(--color-primary-500);
+  stroke-width: 1px;
+  stroke: var(--color-primary-500);
+  transition: all 0.15s;
+}
+
+/* sign up for the newsletter styles */
+.newsletterForm input {
+  min-width: 220px;
+  height: 46px;
+  border: none;
+  border-left: 1px solid var(--color-grey-700);
+  border-top: 1px solid var(--color-grey-700);
+  border-bottom: 1px solid var(--color-grey-700);
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  padding: 0 16px;
+}
+
+.newsletterForm input:focus {
+  outline: 0.3px solid var(--color-grey-700);
+}
+
+.newsletterForm button {
+  width: 46px;
+  height: 46px;
+  background-color: var(--color-grey-900);
+  border: 1px solid var(--color-grey-900);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.newsletterForm button:hover {
+  background-color: var(--color-primary-500);
+  border: 1px solid var(--color-primary-500);
+  transition: all 0.15s;
+}
+
+/* bottom part of the footer */
+.footerSectionBottom {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 52px;
+  border-top: 2px solid var(--color-grey-100);
+  padding: 16px 0;
+}

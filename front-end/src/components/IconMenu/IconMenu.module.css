@@ -1,0 +1,26 @@
+.iconMenu {
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+.iconMenu li {
+  position: relative;
+}
+
+.numberOfProductsInCart {
+  width: 15px;
+  height: 15px;
+  background-color: var(--color-primary-500);
+  color: var(--color-grey-900);
+  font-size: 9.38px;
+  font-weight: 700;
+  padding: 1.41px 4.31px 2.59px 4.69px;
+  border-radius: 50%;
+
+  position: absolute;
+  top: 0;
+  right: -4px;
+}
