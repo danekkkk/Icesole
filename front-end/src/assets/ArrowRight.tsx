@@ -1,6 +1,7 @@
-export default function ArrowRight() {
+export default function ArrowRight({rotate = 0} : {rotate?: number}) {
   return (
     <svg
+      style={{rotate: `${rotate}deg`}}
       width="18"
       height="12"
       fill="white"

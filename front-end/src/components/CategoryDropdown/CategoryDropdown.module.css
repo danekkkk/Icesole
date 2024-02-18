@@ -15,7 +15,7 @@
   gap: 152px;
   height: 315px;
   background-color: white;
-  padding: 12px 0 64px 152px;
+  padding: 12px;
   position: relative;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .categorySection {
-  width: 300px;
+  width: 200px;
 }
 
 .categorySection h5 {

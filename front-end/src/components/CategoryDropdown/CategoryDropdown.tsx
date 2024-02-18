@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import { MEN_CATEGORY } from "../../constants/categories";
-import { GENDERS_ENUM } from "../../constants/enums";
+import { MEN_CATEGORY, WOMEN_CATEGORY, CHILDREN_CATEGORY, ICategory } from "../../constants/categories";
 import styles from "./CategoryDropdown.module.css";
+import { useEffect, useState } from "react";
 
 interface ICategoryDropdown {
   setActiveCategory: () => void;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   showCategoryDropdown: boolean;
-  gender: GENDERS_ENUM;
+  gender: string;
 }
 
 export function CategoryDropdown({
@@ -18,10 +18,23 @@ export function CategoryDropdown({
   showCategoryDropdown,
   gender,
 }: ICategoryDropdown) {
-  switch (gender) {
-    case GENDERS_ENUM.kobiety:
-      return;
-  }
+  const [category, setCategory] = useState<ICategory[]>(MEN_CATEGORY);
+
+  useEffect(() => {
+    switch(gender) {
+      case "Mężczyźni":
+        setCategory(MEN_CATEGORY);
+        break;
+      case "Kobiety":
+        setCategory(WOMEN_CATEGORY);
+        break;
+      case "Dzieci":
+        setCategory(CHILDREN_CATEGORY);
+        break;
+      default:
+        setCategory(MEN_CATEGORY);
+    }
+  }, [gender]);
 
   return (
     showCategoryDropdown && (
@@ -34,7 +47,7 @@ export function CategoryDropdown({
           }}
           className={styles.categoryDropdownContainer}
         >
-          {MEN_CATEGORY.map((category) => {
+          {category.map((category) => {
             return (
               <section
                 className={styles.categorySection}
@@ -59,12 +72,6 @@ export function CategoryDropdown({
               </section>
             );
           })}
-          <section>
-            <h5></h5>
-            <ul>
-              <li></li>
-            </ul>
-          </section>
         </div>
       </div>
     )

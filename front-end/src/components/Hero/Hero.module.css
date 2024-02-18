@@ -4,6 +4,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center 60%;
+  opacity: 0.95;
   padding: 42px 156px;
   display: flex;
   flex-direction: row;
@@ -13,4 +14,37 @@
 .heroMainHeading,
 .heroSubheading {
   color: var(--color-grey-100);
+}
+
+/* Tablets ----------- */
+@media only screen and (max-width : 1224px) {
+  .heroSection {
+    padding: 42px 100px;
+  }
+
+}
+
+/* Tablets ----------- */
+@media only screen and (max-width : 1024px) {
+  .heroSection {
+    padding: 42px 56px;
+  }
+}
+
+/* Smartphones ----------- */
+@media only screen and (max-width : 992px) {
+
+}
+
+/* Smartphones ----------- */
+@media only screen and (max-width : 758px) {
+  .heroSection {
+    padding: 42px 28px;
+    height: 420px;
+  }
+}
+
+/* Smartphones  */
+@media only screen and (max-width : 576px) {
+
 }

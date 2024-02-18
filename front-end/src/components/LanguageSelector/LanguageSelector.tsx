@@ -18,6 +18,7 @@ export function LanguageSelector() {
     <>
       <div
         className={styles.languageSelector}
+        onClick={handleMouseEnter}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >

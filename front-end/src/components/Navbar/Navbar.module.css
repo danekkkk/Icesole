@@ -2,12 +2,46 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: 80px;
-  align-items: center;
   padding: 18px 150px;
   position: sticky;
   top: 0;
   left: 0;
   background-color: white;
+  z-index: 10;
+}
+
+
+/* Tablets ----------- */
+@media only screen and (max-width : 1224px) {
+  .navbar {
+    padding: 8px 100px;
+  }
+
+}
+
+/* Tablets ----------- */
+@media only screen and (max-width : 1024px) {
+  .navbar {
+    padding: 8px 56px;
+  }
+}
+
+/* Smartphones ----------- */
+@media only screen and (max-width : 992px) {
+
+}
+
+/* Smartphones ----------- */
+@media only screen and (max-width : 758px) {
+  .navbar {
+    padding: 8px 28px;
+  }
+}
+
+/* Smartphones  */
+@media only screen and (max-width : 576px) {
+
 }

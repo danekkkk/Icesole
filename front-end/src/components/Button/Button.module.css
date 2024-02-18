@@ -4,7 +4,7 @@
   font-size: var(--font-paragraph-18);
   margin-top: 12px;
   transition: all 0.3s;
-  min-width: 190px;
+  min-width: 130px;
 }
 
 .button svg {
@@ -55,5 +55,26 @@
 }
 
 .button.secondary:hover svg {
+  transform: translateX(4px);
+}
+
+/* variant: blackNWhite */
+.button.blackNWhite {
+  border: 1px solid var(--color-grey-900);
+  background-color: var(--color-grey-900);
+  color: var(--color-grey-100);
+}
+
+.button.blackNWhite svg {
+  fill: var(--color-grey-100);
+  stroke: var(--color-grey-100);
+}
+
+.button.blackNWhite:hover {
+  border: 1px solid var(--color-grey-900);
+  background-color: var(--color-grey-900);
+}
+
+.button.blackNWhite:hover svg {
   transform: translateX(4px);
 }

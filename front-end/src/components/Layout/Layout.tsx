@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { GENDERS_ENUM } from "../../constants/enums";
 import { CategoryDropdown } from "../CategoryDropdown/CategoryDropdown";
 import { Footer } from "../Footer/Footer";
 import { IconMenu } from "../IconMenu/IconMenu";
@@ -11,7 +10,7 @@ import { Topbar } from "../Topbar/Topbar";
 import styles from "./Layout.module.css";
 
 interface ILayout {
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
 }
 
 export function Layout({ children }: ILayout) {
@@ -40,7 +39,7 @@ export function Layout({ children }: ILayout) {
           onMouseEnter={() => setShowCategoryDropdown(true)}
           onMouseLeave={() => setShowCategoryDropdown(false)}
           showCategoryDropdown={showCategoryDropdown}
-          gender={GENDERS_ENUM.mezczyzni}
+          gender={activeCategory}
         />
         <IconMenu />
       </Navbar>

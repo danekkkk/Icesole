@@ -1,0 +1,109 @@
+.bestsellersSection {
+  padding: 58px 150px 105px 150px;
+  overflow: hidden;
+  position: relative;
+  min-height: 670px;
+}
+
+/* Product list styles */
+.bestsellersList {
+  display: flex;
+  gap: 18px;
+  white-space: nowrap;
+  position: relative;
+  transition: all 0.25s;
+  margin-top: 22px;
+}
+
+/* default next/previous button styles */
+.bestsellersSection button {
+  background-color: rgba(232, 232, 232, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 4px;
+  padding: 16px 12px;
+  outline: none;
+  border: none;
+  box-shadow: 1px 1px 32px -16px var(--color-grey-900);
+  transition: background-color 0.15s;
+}
+
+.bestsellersSection button:disabled,
+button[disabled] {
+  background-color: rgba(188, 188, 188, 0.5);
+  cursor: not-allowed;
+}
+
+.previousProduct {
+  position: absolute;
+  right: 210px;
+  bottom: 15px;
+}
+
+.nextProduct {
+  position: absolute;
+  right: 150px;
+  bottom: 15px;
+}
+
+/* button arrow styles */
+.bestsellersSection button > svg {
+  width: 24px;
+  height: 16px;
+  fill: var(--color-grey-900);
+  stroke: var(--color-grey-900);
+  transition: fill, stroke 0.15s;
+}
+
+.bestsellersSection button:disabled > svg,
+button[disabled] > svg {
+  fill: var(--color-grey-500);
+  stroke: var(--color-grey-500);
+}
+
+/* Tablets ----------- */
+@media only screen and (max-width: 1224px) {
+  .bestsellersSection {
+    padding: 58px 100px 105px 100px;
+  }
+  .previousProduct {
+    right: 160px;
+  }
+  .nextProduct {
+    right: 100px;
+  }
+}
+
+/* Tablets ----------- */
+@media only screen and (max-width: 1024px) {
+  .bestsellersSection {
+    padding: 58px 56px 105px 56px;
+  }
+  .previousProduct {
+    right: 106px;
+  }
+  .nextProduct {
+    right: 56px;
+  }
+}
+
+/* Smartphones ----------- */
+@media only screen and (max-width: 992px) {
+}
+
+/* Smartphones ----------- */
+@media only screen and (max-width: 758px) {
+  .bestsellersSection {
+    padding: 58px 28px 105px 28px;
+    height: 420px;
+  }
+  .previousProduct {
+    right: 88px;
+  }
+  .nextProduct {
+    right: 28px;
+  }
+}
+
+/* Smartphones  */
+@media only screen and (max-width: 576px) {
+}

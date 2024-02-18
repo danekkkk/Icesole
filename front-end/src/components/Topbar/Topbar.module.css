@@ -6,6 +6,7 @@
   background-color: var(--color-grey-100);
   align-items: center;
   padding: 8px 150px;
+  z-index: 11;
 }
 
 .topbar > ul {
@@ -27,4 +28,36 @@
 
 .topbar a {
   color: var(--color-grey-900);
+}
+
+/* Tablets ----------- */
+@media only screen and (max-width : 1224px) {
+  .topbar {
+    padding: 8px 100px;
+  }
+
+}
+
+/* Tablets ----------- */
+@media only screen and (max-width : 1024px) {
+  .topbar {
+    padding: 8px 56px;
+  }
+}
+
+/* Smartphones ----------- */
+@media only screen and (max-width : 992px) {
+
+}
+
+/* Smartphones ----------- */
+@media only screen and (max-width : 758px) {
+  .topbar {
+    padding: 8px 28px;
+  }
+}
+
+/* Smartphones  */
+@media only screen and (max-width : 576px) {
+
 }

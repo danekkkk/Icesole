@@ -7,4 +7,5 @@ export enum GENDERS_ENUM {
 export enum BUTTON_VARIANTS {
   primary = "primary",
   secondary = "secondary",
+  blackNWhite = "blackNWhite"
 }
