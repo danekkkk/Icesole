@@ -16,7 +16,7 @@ const productsInCart = [
     price: 39.99,
     priceDiscounted: 29.99,
     description: "Jasnoniebieski T-shirt z krótkim rękawem",
-    quadntity: 1,
+    quantity: 1,
     size: "M",
     color: "Jasnoniebieski",
     imgSrc: T_SHIRT,
@@ -28,7 +28,7 @@ const productsInCart = [
     price: 69.99,
     priceDiscounted: 49.99,
     description: "Biały top damski z długim rękawem",
-    quadntity: 1,
+    quantity: 1,
     size: "XS",
     color: "Biały",
     imgSrc: TOP,
@@ -53,7 +53,7 @@ export function CartModal({
   useEffect(() => {
     let total = 0;
     productsInCart.forEach((product) => {
-      total += product.price * product.quadntity;
+      total += product.price * product.quantity;
     });
     setCartValue(parseFloat(total.toFixed(2)));
   }, [productsInCart]);
@@ -82,7 +82,7 @@ export function CartModal({
                 <div className={styles.productInfoCol}>
                   <h6>{product.name}</h6>
                   <p>Rozmiar: {product.size}</p>
-                  <p>Ilość: {product.quadntity}</p>
+                  <p>Ilość: {product.quantity}</p>
                   <p>Kolor: {product.color}</p>
                 </div>
                 <div className={styles.productPriceCol}>
@@ -92,13 +92,13 @@ export function CartModal({
                     }`}
                   >
                     {(product.isDiscounted
-                      ? product.priceDiscounted * product.quadntity
-                      : product.price * product.quadntity
+                      ? product.priceDiscounted * product.quantity
+                      : product.price * product.quantity
                     ).toFixed(2)}
                     zł
                     {product.isDiscounted ? (
                       <span>
-                        {(product.price * product.quadntity).toFixed(2)}zł
+                        {(product.price * product.quantity).toFixed(2)}zł
                       </span>
                     ) : null}
                   </p>

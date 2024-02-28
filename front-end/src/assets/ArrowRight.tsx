@@ -1,4 +1,4 @@
-export default function ArrowRight({rotate = 0} : {rotate?: number}) {
+export default function ARROW_RIGHT({rotate = 0} : {rotate?: number}) {
   return (
     <svg
       style={{rotate: `${rotate}deg`}}

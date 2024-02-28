@@ -46,5 +46,8 @@
 
 /* Smartphones  */
 @media only screen and (max-width : 576px) {
-
+  .heroSection {
+    padding: 42px 12px;
+    height: 420px;
+  }
 }

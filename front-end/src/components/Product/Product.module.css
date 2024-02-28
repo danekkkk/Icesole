@@ -95,3 +95,17 @@
 /* Smartphones  */
 @media only screen and (max-width: 576px) {
 }
+
+@media only screen and (max-width: 460px) {
+  .fullWidthProductContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 451px;
+  }
+
+  .fullWidthProductContainer > .productThumbnailContainer {
+    width: 100%;
+    height: 300px;
+  }
+}

@@ -1,0 +1,137 @@
+.productRow {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 20px;
+  margin-bottom: 36px;
+  position: relative;
+}
+
+.productThumbnailCol {
+  width: 173px;
+  height: 173px;
+}
+
+.productThumbnailCol img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.productInfoCol {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.productQuantity {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+
+.productPriceCol {
+  margin-left: auto;
+}
+
+.productPrice {
+  color: var(--color-grey-900);
+  font-weight: 700;
+}
+
+.priceDiscounted {
+  color: var(--color-discount);
+  position: relative;
+}
+
+.priceDiscounted > span {
+  position: absolute;
+  top: -10px;
+  right: 0;
+  font-size: var(--font-heading-5);
+  color: var(--color-grey-900);
+  text-decoration: line-through;
+}
+
+.selectQuantity {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.selectQuantity:focus, :focus-visible, :focus-within {
+    border: none;
+    outline: none;
+}
+
+.deleteProductBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    margin-top: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.deleteProductBtn:focus, :focus-visible, :focus-within {
+    outline: none;
+    border: none;
+}
+
+.deleteProductBtn img {
+  width: 16px;
+  height: 16px;
+}
+
+/* Tablets ----------- */
+@media only screen and (max-width: 1224px) {
+}
+
+/* Tablets ----------- */
+@media only screen and (max-width: 1024px) {
+}
+
+/* Smartphones ----------- */
+@media only screen and (max-width: 992px) {
+}
+
+/* Smartphones ----------- */
+@media only screen and (max-width: 758px) {
+  .productPriceCol {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+/* Smartphones  */
+@media only screen and (max-width: 576px) {
+  .productRow {
+    flex-direction: column;
+  }
+  .productThumbnailCol {
+    width: 100%;
+    height: 400px;
+  }
+  .productPriceCol {
+    position: absolute;
+    right: 0;
+    top: calc(400px + 20px);
+    transform: translateY(calc(0 - var(--font-heading-4)));
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .productThumbnailCol {
+    height: 300px;
+  }
+  .productPriceCol {
+    top: calc(300px + 20px);
+  }
+}

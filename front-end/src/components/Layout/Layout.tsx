@@ -8,12 +8,10 @@ import { Navbar } from "../Navbar/Navbar";
 import { Topbar } from "../Topbar/Topbar";
 
 import styles from "./Layout.module.css";
+import { Outlet } from "react-router-dom";
 
-interface ILayout {
-  children?: JSX.Element | JSX.Element[];
-}
 
-export function Layout({ children }: ILayout) {
+export function Layout() {
   const [showCategoryDropdown, setShowCategoryDropdown] =
     useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState<string>("");
@@ -43,7 +41,9 @@ export function Layout({ children }: ILayout) {
         />
         <IconMenu />
       </Navbar>
-      <main className={styles.mainSection}>{children}</main>
+      <main className={styles.mainSection}>
+        <Outlet />
+      </main>
       <Footer />
     </>
   );

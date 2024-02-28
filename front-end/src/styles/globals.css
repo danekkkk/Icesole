@@ -72,3 +72,61 @@ body {
   align-items: center;
   min-height: 100vh;
 }
+
+/* Tablets ----------- */
+@media only screen and (max-width: 1224px) {
+  h1 {
+    font-size: var(--font-heading-1);
+  }
+  
+  h2 {
+    font-size: var(--font-heading-2);
+  }
+  
+  h3 {
+    font-size: var(--font-heading-3);
+  }
+  
+  h4 {
+    font-size: var(--font-heading-4);
+  }
+  
+  h5 {
+    font-size: 16px;
+  }
+}
+
+/* Tablets ----------- */
+@media only screen and (max-width: 1024px) {
+}
+
+/* Smartphones ----------- */
+@media only screen and (max-width: 992px) {
+}
+
+/* Smartphones ----------- */
+@media only screen and (max-width: 758px) {
+}
+
+/* Smartphones  */
+@media only screen and (max-width: 576px) {
+  h1 {
+    font-size: var(--font-heading-2);
+  }
+  
+  h2 {
+    font-size: var(--font-heading-3);
+  }
+  
+  h3 {
+    font-size: var(--font-heading-3);
+  }
+  
+  h4 {
+    font-size: var(--font-heading-4);
+  }
+  
+  h5 {
+    font-size: 16px;
+  }
+}

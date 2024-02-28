@@ -12,13 +12,14 @@ interface IProduct {
     priceDiscounted?: number;
     isDiscounted?: boolean;
     isFavourite: boolean;
-  };
+  },
+  fullWithMobile?: boolean;
 }
 
-export function Product({ product }: IProduct) {
+export function Product({ product, fullWithMobile }: IProduct) {
   const [isFavourite, setIsFavourite] = useState<boolean>(product.isFavourite);
   return (
-    <div className={styles.productContainer}>
+    <div className={`${styles.productContainer} ${fullWithMobile ? styles.fullWidthProductContainer : ""}`}>
       <div className={styles.productThumbnailContainer}>
         <img className={styles.productThumbnail} src={product.imgSrc} alt="" />
         <div
