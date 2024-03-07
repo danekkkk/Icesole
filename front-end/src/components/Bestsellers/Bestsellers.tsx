@@ -1,60 +1,16 @@
 import { useEffect, useState } from "react";
 import styles from "./Bestsellers.module.css";
+
 import ARROW_RIGHT from "../../assets/ArrowRight";
-
 import { Product } from "../Product/Product";
-import T_SHIRT from "../../assets/T-shirt.jpeg";
-import HAT from "../../assets/Czapka z daszkiem.jpeg";
-import CARGO from "../../assets/Spodnie Cargo.jpeg";
-import TOP from "../../assets/Top.jpeg";
 
-const bestsellers = [
-  {
-    id: 1,
-    name: "T-shirt Regular Fit",
-    price: 39.99,
-    description: "Jasnoniebieski T-shirt z krótkim rękawem",
-    imgSrc: T_SHIRT,
-    isDiscounted: false,
-    isFavourite: false,
-  },
-  {
-    id: 2,
-    name: "Top z długim rękawem",
-    price: 69.99,
-    priceDiscounted: 49.99,
-    description: "Biały top damski z długim rękawem",
-    imgSrc: TOP,
-    isDiscounted: true,
-    isFavourite: false,
-  },
-  {
-    id: 3,
-    name: "Czapka z daszkiem",
-    price: 49.99,
-    description: "Czarna przeciwdeszczowa czapka z daszkiem",
-    imgSrc: HAT,
-    isDiscounted: false,
-    isFavourite: false,
-  },
-  {
-    id: 4,
-    name: "Spodnie cargo",
-    price: 59.99,
-    description: "Damskie szare odpinane spodnie cargo",
-    imgSrc: CARGO,
-    isDiscounted: false,
-    isFavourite: false,
-  },
-];
 
 const gap = 18;
 let productWidth = 367;
 
-export function Bestsellers() {
+export function Bestsellers( {bestsellers} ) {
   const [translateX, setTranslateX] = useState<number>(0);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-
   const [visibleProducts, setVisibleProducts] = useState(0);
 
   useEffect(() => {
@@ -97,7 +53,7 @@ export function Bestsellers() {
 
       <ul className={styles.bestsellersList} style={{ left: translateX }}>
         {bestsellers.map((product, index) => {
-          return <Product key={index} product={product} />;
+          return <Product key={index} product_id={product.attributes.product.data.id} product={product.attributes.product.data.attributes} />;
         })}
       </ul>
 

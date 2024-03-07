@@ -1,5 +1,5 @@
 .bestsellersSection {
-  padding: 58px 0 105px 0;
+  padding: 58px 150px 105px 150px;
   overflow: hidden;
   position: relative;
   min-height: 670px;
@@ -7,9 +7,12 @@
 
 /* Product list styles */
 .bestsellersList {
-  display: flex;
+  /* display: flex;
   gap: 18px;
-  white-space: nowrap;
+  white-space: nowrap; */
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 18px;
   position: relative;
   transition: all 0.25s;
   margin-top: 22px;
@@ -35,13 +38,13 @@ button[disabled] {
 
 .previousProduct {
   position: absolute;
-  right: 60px;
+  right: 210px;
   bottom: 15px;
 }
 
 .nextProduct {
   position: absolute;
-  right: 0;
+  right: 150px;
   bottom: 15px;
 }
 
@@ -63,26 +66,26 @@ button[disabled] > svg {
 /* Tablets ----------- */
 @media only screen and (max-width: 1224px) {
   .bestsellersSection {
-    padding: 58px 0 105px 0;
+    padding: 58px 100px 105px 100px;
   }
   .previousProduct {
-    right: 60px;
+    right: 160px;
   }
   .nextProduct {
-    right: 0;
+    right: 100px;
   }
 }
 
 /* Tablets ----------- */
 @media only screen and (max-width: 1024px) {
   .bestsellersSection {
-    padding: 58px 0 105px 0;
+    padding: 58px 56px 105px 56px;
   }
   .previousProduct {
-    right: 60px;
+    right: 116px;
   }
   .nextProduct {
-    right: 0;
+    right: 56px;
   }
 }
 
@@ -93,17 +96,27 @@ button[disabled] > svg {
 /* Smartphones ----------- */
 @media only screen and (max-width: 758px) {
   .bestsellersSection {
-    padding: 58px 0 105px 0;
+    padding: 58px 28px 105px 28px;
     height: 420px;
   }
   .previousProduct {
-    right: 60px;
+    right: 88px;
   }
   .nextProduct {
-    right: 0;
+    right: 28px;
   }
 }
 
 /* Smartphones  */
 @media only screen and (max-width: 576px) {
+  .bestsellersSection {
+    padding: 58px 12px 105px 12px;
+    height: 420px;
+  }
+  .previousProduct {
+    right: 72px;
+  }
+  .nextProduct {
+    right: 12px;
+  }
 }

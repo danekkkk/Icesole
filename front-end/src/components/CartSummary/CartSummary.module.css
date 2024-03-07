@@ -12,6 +12,10 @@
   left: 0;
 }
 
+.sectionHeading {
+  margin-bottom: 12px;
+}
+
 .discountCode {
   display: flex;
   flex-direction: column;
@@ -30,6 +34,7 @@
 
 .discountCodeDropdown {
   transition: all 0.15s;
+  cursor: pointer;
 }
 
 .discountCodeDropdown input {

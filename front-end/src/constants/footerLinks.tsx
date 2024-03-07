@@ -14,15 +14,15 @@ export const FOOTER_LINKS: {
     links: [
       {
         linkName: "Mężczyźni",
-        path: "#",
+        path: "/mezczyzni",
       },
       {
         linkName: "Kobiety",
-        path: "#",
+        path: "/kobiety",
       },
       {
         linkName: "Dzieci",
-        path: "#",
+        path: "/dzieci",
       },
       {
         linkName: "Wyprzedaż",

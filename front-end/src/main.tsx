@@ -8,6 +8,8 @@ import { FavouritePage } from "./views/FavouritePage/FavouritePage.tsx";
 import { CartPage } from "./views/CartPage/CartPage.tsx";
 import { Layout } from "./components/Layout/Layout.tsx";
 import { MainPage } from "./views/MainPage/MainPage.tsx";
+import { ProductsPage } from "./views/ProductsPage/ProductsPage.tsx";
+import { mainPageLoader } from "./api/mainPageLoader.ts";
 
 const router = createBrowserRouter([
   {
@@ -25,8 +27,22 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <MainPage />,
+        loader: mainPageLoader
       },
-    ]
+      {
+        path: "/:category",
+        element: <ProductsPage />,
+      },
+      {
+        path: "/:category/:subcategory",
+        element: <ProductsPage />,
+      },
+      {
+        path: "/:category/:subcategory/:subsubcategory",
+        element: <ProductsPage />,
+      },
+
+    ],
   },
 ]);
 

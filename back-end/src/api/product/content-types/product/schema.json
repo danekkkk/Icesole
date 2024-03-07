@@ -1,0 +1,101 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Products",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "product_name": {
+      "type": "string",
+      "required": true
+    },
+    "product_description": {
+      "type": "text",
+      "required": true
+    },
+    "product_images": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "product_price": {
+      "type": "decimal",
+      "required": true
+    },
+    "product_price_discounted": {
+      "type": "decimal",
+      "required": false
+    },
+    "product_isDiscounted": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "bestsellers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bestseller.bestseller",
+      "mappedBy": "product"
+    },
+    "product_category": {
+      "type": "enumeration",
+      "enum": [
+        "Mężczyźni",
+        "Kobiety",
+        "Dzieci"
+      ],
+      "required": true,
+      "default": "Mężczyźni",
+      "enumName": "product_category"
+    },
+    "product_subcategory": {
+      "type": "enumeration",
+      "enum": [
+        "Buty",
+        "Odzież",
+        "Akcesoria"
+      ],
+      "required": true
+    },
+    "product_subsubcategory": {
+      "type": "enumeration",
+      "enum": [
+        "=== Buty ===",
+        "Sneakersy",
+        "Obuwie sportowe",
+        "Obuwie zimowe",
+        "Obuwie górskie",
+        "Obuwie ocieplane",
+        "=== Odzież ===",
+        "T-shirty i podkoszulki",
+        "Bluzy i swetry",
+        "Spodnie",
+        "Kurtki i płaszcze",
+        "Bielizna i skarpety",
+        "Piżamy",
+        "Spodenki",
+        "=== Akcesoria ===",
+        "Torebki",
+        "Plecaki",
+        "Czapki",
+        "Okulary przeciwsłoneczne",
+        "Rękawiczki",
+        "Czapki zimowe"
+      ],
+      "required": true
+    }
+  }
+}

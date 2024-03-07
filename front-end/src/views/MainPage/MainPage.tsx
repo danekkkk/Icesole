@@ -1,17 +1,17 @@
 import { Hero } from "../../components/Hero/Hero";
 import { Bestsellers } from "../../components/Bestsellers/Bestsellers";
 import { JoinNow } from "../../components/JoinNow/JoinNow";
-import { SectionWrapper } from "../../components/SectionWrapper/SectionWrapper";
 
 import HERO_IMAGE from "../../assets/HeroSectionImage.png";
+import { useLoaderData } from "react-router-dom";
 
 export function MainPage() {
+  const bestsellers = useLoaderData();
+
   return (
     <>
       <Hero heroImg={HERO_IMAGE} />
-      <SectionWrapper>
-        <Bestsellers />
-      </SectionWrapper>
+      <Bestsellers bestsellers={bestsellers} />
       <JoinNow />
     </>
   );

@@ -7,10 +7,10 @@
 }
 
 .favouritesList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px 18px;
   margin-top: 44px;
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
 }
 
 .noResults {
@@ -38,12 +38,18 @@
   .favouritesSection {
     padding: 68px 0 122px 0;
   }
+  .favouritesList {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /* Tablets ----------- */
 @media only screen and (max-width: 1024px) {
   .favouritesSection {
     padding: 68px 0 122px 0;
+  }
+  .favouritesList {
+    gap: 18px 18px;
   }
 }
 
@@ -60,6 +66,12 @@
   .favouritesSection {
     padding: 68px 0 38px 0;
   }
+}
+
+@media only screen and (max-width: 651px) {
+  .favouritesList {
+      grid-template-columns: 1fr;
+    }
 }
 
 /* Smartphones  */

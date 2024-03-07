@@ -1,0 +1,28 @@
+.breadcrumb {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-top: 4px;
+}
+
+.breadcrumb li {
+    height: 22px;
+    font-size: var(--font-paragraph-14);
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb li a:global(.active) {
+    color: var(--color-grey-900);
+    font-weight: 700;
+}
+
+
+.breadcrumb li svg {
+    transform: scale(0.7);
+}
+
+.breadcrumb li:last-child svg {
+    display: none;
+}
