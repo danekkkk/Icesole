@@ -1,0 +1,26 @@
+.chooseSizeButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    background-color: white;
+    border: 1px solid var(--color-grey-700);
+    border-radius: 4px;
+    font-size: var(--font-paragraph);
+    margin-top: 8px;
+    text-align: center;
+    transition: all .15s;
+}
+
+.activeSize, .chooseSizeButton:hover {
+    background-color: var(--color-primary-500);
+    border: 1px solid var(--color-primary-500);
+
+}
+
+.chooseSizeButton:disabled, .activeSize:disabled {
+    border: 1px solid var(--color-grey-300);
+    color: var(--color-grey-500);
+    background-color: white;
+}

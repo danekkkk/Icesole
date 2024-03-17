@@ -4,7 +4,8 @@
   "info": {
     "singularName": "bestseller",
     "pluralName": "bestsellers",
-    "displayName": "Bestsellers"
+    "displayName": "Bestsellers",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -13,9 +14,8 @@
   "attributes": {
     "product": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::product.product",
-      "inversedBy": "bestsellers"
+      "relation": "oneToOne",
+      "target": "api::product.product"
     }
   }
 }

@@ -68,6 +68,13 @@
   position: absolute;
 }
 
+@media only screen and (min-width: 1620px) {
+  .productContainer {
+    width: 367px;
+    height: 480px;
+  }
+}
+
 /* Tablets ----------- */
 @media only screen and (max-width: 1224px) {
 

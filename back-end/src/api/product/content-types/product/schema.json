@@ -20,17 +20,6 @@
       "type": "text",
       "required": true
     },
-    "product_images": {
-      "type": "media",
-      "multiple": true,
-      "required": true,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
     "product_price": {
       "type": "decimal",
       "required": true
@@ -43,12 +32,6 @@
       "type": "boolean",
       "default": false,
       "required": true
-    },
-    "bestsellers": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::bestseller.bestseller",
-      "mappedBy": "product"
     },
     "product_category": {
       "type": "enumeration",
@@ -95,6 +78,20 @@
         "Rękawiczki",
         "Czapki zimowe"
       ],
+      "required": true
+    },
+    "product_colors": {
+      "type": "component",
+      "repeatable": true,
+      "component": "colors.product-color",
+      "required": true
+    },
+    "product_description_dropdown": {
+      "type": "richtext",
+      "required": true
+    },
+    "product_delivery_dropdown": {
+      "type": "richtext",
       "required": true
     }
   }

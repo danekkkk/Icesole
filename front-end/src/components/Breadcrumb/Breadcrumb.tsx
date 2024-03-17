@@ -2,11 +2,13 @@ import SELECT_DOWN from "@/assets/SelectDown";
 import styles from "./Breadcrumb.module.css";
 import { NavLink, useParams } from "react-router-dom";
 import { GENDERS } from "../../constants/categories";
-import { SUBPATH_TO_ENDPOINT_MAPPING, SUBSUBPATH_TO_ENDPOINT_MAPPING } from "@/constants/api";
+import { SUBPATH_TO_ENDPOINT_MAPPING, SUBSUBPATH_TO_ENDPOINT_MAPPING } from "../../constants/api";
+import { useFetchProductDetails } from "@/hooks/useFetchProductDetails";
 
 export function Breadcrumb() {
 
-  const {category, subcategory, subsubcategory} = useParams();
+  const {category, subcategory, subsubcategory, product_id} = useParams();
+  const {productData} = useFetchProductDetails(product_id);
 
   const foundCategory = GENDERS.find((c) => c.path == category);
   
@@ -29,6 +31,13 @@ export function Breadcrumb() {
       breadcrumbs.push({
         categoryName: foundSubsubcategory,
         path: `/${foundCategory?.path}/${subcategory}/${subsubcategory}`
+      })
+    }
+    
+    if (product_id && productData) {
+      breadcrumbs.push({
+        categoryName: productData.attributes.product_name,
+        path: `/${foundCategory?.path}/${subcategory}/${subsubcategory}/${productData.id}`
       })
     }
   }

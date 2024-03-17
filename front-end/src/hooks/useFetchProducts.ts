@@ -54,7 +54,7 @@ export function useFetchProducts(
           }
         }
 
-        url = `${url}&pagination[page]=${page}&pagination[pageSize]=9&populate=*`;
+        url = `${url}&pagination[page]=${page}&pagination[pageSize]=9&populate=product_colors.product_images`;
 
         const response = await axios.get(url, config);
 

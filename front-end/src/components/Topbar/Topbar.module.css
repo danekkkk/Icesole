@@ -30,6 +30,12 @@
   color: var(--color-grey-900);
 }
 
+@media only screen and (min-width: 1620px) {
+  .sectionWrapper {
+    padding: 0 200px;
+  }
+}
+
 /* Tablets ----------- */
 @media only screen and (max-width : 1224px) {
   .topbar {

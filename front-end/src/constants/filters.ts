@@ -1,6 +1,6 @@
 export const SIZES_FILTER = {
     filterName: "Rozmiar",
-    filterBy: ["XS", "S", "M", "L", "XL", "2XL"],
+    filterBy: ["XS", "S", "M", "L", "XL", "XXL"],
 };
 
 export const BRANDS_FILTER = {

@@ -1,0 +1,56 @@
+{
+  "collectionName": "components_colors_product_colors",
+  "info": {
+    "displayName": "product_color",
+    "icon": "paint",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "product_images": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
+    },
+    "XS": {
+      "type": "integer",
+      "required": true
+    },
+    "S": {
+      "type": "integer",
+      "required": true
+    },
+    "M": {
+      "type": "integer",
+      "required": true
+    },
+    "L": {
+      "type": "integer",
+      "required": true
+    },
+    "XL": {
+      "type": "integer",
+      "required": true
+    },
+    "XXL": {
+      "type": "integer",
+      "required": true
+    },
+    "product_color": {
+      "type": "enumeration",
+      "enum": [
+        "Czarny",
+        "Biały",
+        "Czerwony",
+        "Niebieski",
+        "Zielony",
+        "Żółty"
+      ],
+      "required": true
+    }
+  }
+}

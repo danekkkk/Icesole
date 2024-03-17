@@ -1,94 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "./Product.module.css";
 import HEART_ICON_OUTLINED from "../../assets/Heart_Icons/HeartIcon_Outlined.svg";
 import HEART_ICON_FILLED from "../../assets/Heart_Icons/HeartIcon_Filled.svg";
 import Sheleton from "@mui/material/Skeleton";
 import { shortenText } from "@/utils/shortenText";
 import { Link } from "react-router-dom";
-import { ENDPOINT_TO_PATH_MAPPING, ENDPOINT_TO_SUBPATH_MAPPING, ENDPOINT_TO_SUBSUBPATH_MAPPING } from "../../constants/api";
+import {
+  ENDPOINT_TO_PATH_MAPPING,
+  ENDPOINT_TO_SUBPATH_MAPPING,
+  ENDPOINT_TO_SUBSUBPATH_MAPPING,
+} from "../../constants/api";
+import { useFetchProductImage } from "@/hooks/useFetchProductImage";
+import { IProduct } from "@/constants/interfaces";
 
-interface ImageData {
-  id: number;
-  attributes: {
-    name: string;
-    alternativeText: string | null;
-    caption: string | null;
-    width: number;
-    height: number;
-    formats: {
-      thumbnail: ImageFormat;
-      large: ImageFormat;
-      medium: ImageFormat;
-      small: ImageFormat;
-    };
-    hash: string;
-    ext: string;
-    mime: string;
-    size: number;
-    url: string;
-    previewUrl: string | null;
-    provider: string;
-    provider_metadata: any | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-}
-
-interface ImageFormat {
-  name: string;
-  hash: string;
-  ext: string;
-  mime: string;
-  path: string | null;
-  width: number;
-  height: number;
-  size: number;
-  url: string;
-}
-
-interface IProduct {
-  product_id: number
-  product: {
-    product_name: string;
-    product_description: string;
-    product_price: number;
-    product_price_discounted: number | null;
-    product_isDiscounted: boolean;
-    product_category: string;
-    product_subcategory: string;
-    product_subsubcategory: string;
-    product_images: { data: ImageData[] };
-  };
+interface Product extends IProduct {
+  product_id: number;
   fullWidthMobile?: boolean;
   isLoading?: boolean;
 }
 
-export function Product({ product_id, product, fullWidthMobile, isLoading }: IProduct) {
+export function Product({
+  product_id,
+  product,
+  fullWidthMobile,
+  isLoading,
+}: Product) {
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
-  const [productImage, setProductImage] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchProductImage = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:1337${product.product_images.data[0].attributes.url}`
-        );
-        if (response.ok) {
-          const blob = await response.blob();
-          const imageUrl = URL.createObjectURL(blob);
-          setProductImage(imageUrl);
-        } else {
-          console.error("Failed to fetch product image");
-        }
-      } catch (error) {
-        console.error("Error fetching product image:", error);
-      }
-    };
-
-    if (!isLoading) {
-      fetchProductImage();
-    }
-  }, [product, isLoading]);
+  const productImages = useFetchProductImage(product.product_colors, isLoading);
 
   return (
     <div
@@ -107,11 +45,22 @@ export function Product({ product_id, product, fullWidthMobile, isLoading }: IPr
           />
         </div>
       ) : (
-        <Link to={`/${ENDPOINT_TO_PATH_MAPPING[product.product_category]}/${ENDPOINT_TO_SUBPATH_MAPPING[product.product_subcategory]}/${ENDPOINT_TO_SUBSUBPATH_MAPPING[product.product_subsubcategory]}/${product_id}`} className={styles.productThumbnailContainer}>
-          {productImage && (
+        <Link
+          to={`/${ENDPOINT_TO_PATH_MAPPING[product.product_category]}/${
+            ENDPOINT_TO_SUBPATH_MAPPING[product.product_subcategory]
+          }/${
+            ENDPOINT_TO_SUBSUBPATH_MAPPING[product.product_subsubcategory]
+          }/${product_id}`}
+          className={styles.productThumbnailContainer}
+        >
+          {productImages && (
             <img
               className={styles.productThumbnail}
-              src={productImage}
+              src={
+                Object.keys(productImages).length !== 0
+                  ? productImages[Object.keys(productImages)[0]][0]
+                  : undefined
+              }
               alt={product.product_name}
               loading="lazy"
             />

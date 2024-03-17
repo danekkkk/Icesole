@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import HEART_ICON_OUTLINED from "../../assets/Heart_Icons/HeartIcon_Outlined.svg";
-import CART_ICON from "../../assets/CartIcon.svg";
+import CART_ICON from "../../assets/CartIcon.tsx";
 import styles from "./IconMenu.module.css";
 import { CartModal } from "../CartDropdown/CartDropdown";
 
@@ -20,7 +20,7 @@ export function IconMenu() {
           onMouseEnter={() => setShowCartDropdown(true)}
           onMouseLeave={() => setShowCartDropdown(false)}
         >
-          <img src={CART_ICON} alt="Koszyk" />
+          <CART_ICON />
           {cartItems > 0 && (
             <span className={styles.numberOfProductsInCart}>{cartItems}</span>
           )}

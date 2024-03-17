@@ -12,7 +12,6 @@ export function useFetchProductDetails(productId: string | undefined) {
         const { data } = response.data;
         setProductData(data);
       } catch (error) {
-        console.error("Error fetching product:", error);
         setProductData(null);
       }
     };

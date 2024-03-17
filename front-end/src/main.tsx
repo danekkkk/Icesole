@@ -10,6 +10,8 @@ import { Layout } from "./components/Layout/Layout.tsx";
 import { MainPage } from "./views/MainPage/MainPage.tsx";
 import { ProductsPage } from "./views/ProductsPage/ProductsPage.tsx";
 import { mainPageLoader } from "./api/mainPageLoader.ts";
+import { productDetailsLoader } from "./api/productDetailsLoader.ts";
+import { ProductDetailsPage } from "./views/ProductDetailsPage/ProductDetailsPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +43,11 @@ const router = createBrowserRouter([
         path: "/:category/:subcategory/:subsubcategory",
         element: <ProductsPage />,
       },
-
+      {
+        path: "/:category/:subcategory/:subsubcategory/:product_id",
+        element: <ProductDetailsPage />,
+        loader: ({params}) => productDetailsLoader(params.product_id),
+      },
     ],
   },
 ]);

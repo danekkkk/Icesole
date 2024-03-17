@@ -14,7 +14,7 @@ const config = {
     // 'ms',
     // 'nl',
     // 'no',
-    // 'pl',
+    'pl',
     // 'pt-BR',
     // 'pt',
     // 'ru',
