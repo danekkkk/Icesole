@@ -9,24 +9,14 @@ import BLIK from "../../assets/Blik.svg";
 
 import { Button } from "../Button/Button";
 import { BUTTON_VARIANTS } from "../../constants/enums";
+import { ICartProduct } from "../../constants/interfaces";
 
 interface ICartSummary {
   cartValue: number;
-  productsInCart: {
-    id: number;
-    name: string;
-    price: number;
-    priceDiscounted: number;
-    description: string;
-    quantity: number;
-    size: string;
-    color: string;
-    imgSrc: string;
-    isDiscounted: boolean;
-  }[];
+  cartItems: ICartProduct[];
 }
 
-export function CartSummary({ cartValue, productsInCart }: ICartSummary) {
+export function CartSummary({ cartValue, cartItems }: ICartSummary) {
   const [isDiscountCodeDropdownOpen, setIsDiscountCodeDropdownOpen] =
     useState<boolean>(false);
 
@@ -87,8 +77,8 @@ export function CartSummary({ cartValue, productsInCart }: ICartSummary) {
           <Button
             variant={BUTTON_VARIANTS.blackNWhite}
             onClick={() => alert("Finalizacja")}
-            opacity={productsInCart.length == 0 ? 0.7 : 1}
-            disabled={productsInCart.length == 0 ? true : false}
+            opacity={cartItems.length == 0 ? 0.7 : 1}
+            disabled={cartItems.length == 0 ? true : false}
           >
             Przejdź do płatności <ARROW_RIGHT />{" "}
           </Button>

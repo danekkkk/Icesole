@@ -1,0 +1,19 @@
+/* Usunięcie obramowania i tła dla paska przewijania na systemie Windows */
+/* IE10+ */
+::-webkit-scrollbar {
+  width: 0;
+}
+
+/* Usunięcie obramowania i tła dla paska przewijania na systemie macOS */
+/* Safari i Chrome */
+::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+* {
+  scrollbar-color: grey transparent;
+}

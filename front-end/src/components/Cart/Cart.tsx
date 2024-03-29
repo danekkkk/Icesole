@@ -1,75 +1,84 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import styles from "./Cart.module.css";
 import { CartProduct } from "../CartProduct/CartProduct";
 
-import TOP from "../../assets/Top.jpeg";
-import T_SHIRT from "../../assets/T-shirt.jpeg";
 import { CartSummary } from "../CartSummary/CartSummary";
+import { CartContext } from "@/contexts/CartContext";
+import { ICartContext, ICartProduct } from "@/constants/interfaces";
 
 export function Cart() {
-  const [productsInCart, setProductsInCart] = useState([
-    {
-      id: 1,
-      name: "T-shirt Regular Fit",
-      price: 39.99,
-      priceDiscounted: 29.99,
-      description: "Jasnoniebieski T-shirt z krótkim rękawem",
-      quantity: 1,
-      size: "M",
-      color: "Jasnoniebieski",
-      imgSrc: T_SHIRT,
-      isDiscounted: false,
-    },
-    {
-      id: 2,
-      name: "Top z długim rękawem",
-      price: 69.99,
-      priceDiscounted: 49.99,
-      description: "Biały top damski z długim rękawem",
-      quantity: 1,
-      size: "XS",
-      color: "Biały",
-      imgSrc: TOP,
-      isDiscounted: true,
-    },
-  ]);
   const [cartValue, setCartValue] = useState<number>(0);
+  const cartContext = useContext(CartContext) as ICartContext | null;
+
+  let cartItems: ICartProduct[] = [];
+  let setCartItems: React.Dispatch<React.SetStateAction<ICartProduct[]>>;
+
+  if (cartContext) {
+    ({ cartItems, setCartItems } = cartContext);
+  }
 
   useEffect(() => {
     let total = 0;
-    productsInCart.forEach((product) => {
-      total += product.isDiscounted
-        ? product.priceDiscounted * product.quantity
-        : product.price * product.quantity;
+    if (cartItems.length > 0) {
+      cartItems.map((product: any) => {
+        total += product.product_isDiscounted
+          ? (product.product_price_discounted ?? 0) * parseInt(product.quantity)
+          : product.product_price * parseInt(product.quantity);
+      });
+      setCartValue(parseFloat(total.toFixed(2)));
+    }
+  }, [cartItems]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  const handleDeleteProduct = (
+    id: number,
+    selectedSize: string,
+    selectedColor: string
+  ): void => {
+    setCartItems((prevProducts: any[]) => {
+      const updatedCart = prevProducts.filter(
+        (product) =>
+          product.product_id !== id ||
+          product.selectedColor !== selectedColor ||
+          product.selectedSize !== selectedSize
+      );
+      localStorage.setItem("cart_products", JSON.stringify(updatedCart));
+      return updatedCart;
     });
-
-    setCartValue(parseFloat(total.toFixed(2)));
-  });
-
-  const handleDeleteProduct = (id: number): void => {
-    setProductsInCart((prevProducts) =>
-      prevProducts.filter((product) => product.id !== id)
-    );
   };
 
-  const handleUpdateQuantity = (id: number, newQuantity: number) => {
-    setProductsInCart((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === id ? { ...product, quantity: newQuantity } : product
-      )
-    );
+  const handleUpdateQuantity = (
+    id: number,
+    newQuantity: number,
+    selectedSize: string,
+    selectedColor: string
+  ) => {
+    setCartItems((prevProducts: any[]) => {
+      const updatedCart = prevProducts.map((product) =>
+        product.product_id === id &&
+        product.selectedColor === selectedColor &&
+        product.selectedSize === selectedSize
+          ? { ...product, quantity: newQuantity }
+          : product
+      );
+      localStorage.setItem("cart_products", JSON.stringify(updatedCart));
+      return updatedCart;
+    });
   };
 
   return (
     <section className={styles.cartSection}>
       <div className={styles.cartProducts}>
         <h3 className={styles.sectionHeading}>Koszyk</h3>
-        {productsInCart.length > 0 ? (
-          productsInCart.map((product) => {
+        {cartItems.length > 0 ? (
+          cartItems.map((product: any, index: number) => {
             return (
               <CartProduct
-                key={product.id}
+                key={index}
                 product={product}
                 onDeleteProduct={handleDeleteProduct}
                 onUpdateQuantity={handleUpdateQuantity}
@@ -81,7 +90,7 @@ export function Cart() {
         )}
       </div>
 
-      <CartSummary cartValue={cartValue} productsInCart={productsInCart} />
+      <CartSummary cartValue={cartValue} cartItems={cartItems} />
     </section>
   );
 }

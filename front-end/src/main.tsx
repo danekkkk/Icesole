@@ -1,3 +1,4 @@
+import "./App.css";
 import "./styles/theme.css";
 import "./styles/globals.css";
 

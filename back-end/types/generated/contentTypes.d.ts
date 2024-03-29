@@ -362,6 +362,117 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiBestsellerBestseller extends Schema.CollectionType {
+  collectionName: 'bestsellers';
+  info: {
+    singularName: 'bestseller';
+    pluralName: 'bestsellers';
+    displayName: 'Bestsellers';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    product: Attribute.Relation<
+      'api::bestseller.bestseller',
+      'oneToOne',
+      'api::product.product'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::bestseller.bestseller',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::bestseller.bestseller',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductProduct extends Schema.CollectionType {
+  collectionName: 'products';
+  info: {
+    singularName: 'product';
+    pluralName: 'products';
+    displayName: 'Products';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    product_name: Attribute.String & Attribute.Required;
+    product_description: Attribute.Text & Attribute.Required;
+    product_price: Attribute.Decimal & Attribute.Required;
+    product_price_discounted: Attribute.Decimal;
+    product_isDiscounted: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
+    product_category: Attribute.Enumeration<
+      ['M\u0119\u017Cczy\u017Ani', 'Kobiety', 'Dzieci']
+    > &
+      Attribute.Required &
+      Attribute.DefaultTo<'M\u0119\u017Cczy\u017Ani'>;
+    product_subcategory: Attribute.Enumeration<
+      ['Buty', 'Odzie\u017C', 'Akcesoria']
+    > &
+      Attribute.Required;
+    product_subsubcategory: Attribute.Enumeration<
+      [
+        '=== Buty ===',
+        'Sneakersy',
+        'Obuwie sportowe',
+        'Obuwie zimowe',
+        'Obuwie g\u00F3rskie',
+        'Obuwie ocieplane',
+        '=== Odzie\u017C ===',
+        'T-shirty i podkoszulki',
+        'Bluzy i swetry',
+        'Spodnie',
+        'Kurtki i p\u0142aszcze',
+        'Bielizna i skarpety',
+        'Pi\u017Camy',
+        'Spodenki',
+        '=== Akcesoria ===',
+        'Torebki',
+        'Plecaki',
+        'Czapki',
+        'Okulary przeciws\u0142oneczne',
+        'R\u0119kawiczki',
+        'Czapki zimowe'
+      ]
+    > &
+      Attribute.Required;
+    product_colors: Attribute.Component<'colors.product-color', true> &
+      Attribute.Required;
+    product_description_dropdown: Attribute.RichText & Attribute.Required;
+    product_delivery_dropdown: Attribute.RichText & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -783,117 +894,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiBestsellerBestseller extends Schema.CollectionType {
-  collectionName: 'bestsellers';
-  info: {
-    singularName: 'bestseller';
-    pluralName: 'bestsellers';
-    displayName: 'Bestsellers';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    product: Attribute.Relation<
-      'api::bestseller.bestseller',
-      'oneToOne',
-      'api::product.product'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::bestseller.bestseller',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::bestseller.bestseller',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiProductProduct extends Schema.CollectionType {
-  collectionName: 'products';
-  info: {
-    singularName: 'product';
-    pluralName: 'products';
-    displayName: 'Products';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    product_name: Attribute.String & Attribute.Required;
-    product_description: Attribute.Text & Attribute.Required;
-    product_price: Attribute.Decimal & Attribute.Required;
-    product_price_discounted: Attribute.Decimal;
-    product_isDiscounted: Attribute.Boolean &
-      Attribute.Required &
-      Attribute.DefaultTo<false>;
-    product_category: Attribute.Enumeration<
-      ['M\u0119\u017Cczy\u017Ani', 'Kobiety', 'Dzieci']
-    > &
-      Attribute.Required &
-      Attribute.DefaultTo<'M\u0119\u017Cczy\u017Ani'>;
-    product_subcategory: Attribute.Enumeration<
-      ['Buty', 'Odzie\u017C', 'Akcesoria']
-    > &
-      Attribute.Required;
-    product_subsubcategory: Attribute.Enumeration<
-      [
-        '=== Buty ===',
-        'Sneakersy',
-        'Obuwie sportowe',
-        'Obuwie zimowe',
-        'Obuwie g\u00F3rskie',
-        'Obuwie ocieplane',
-        '=== Odzie\u017C ===',
-        'T-shirty i podkoszulki',
-        'Bluzy i swetry',
-        'Spodnie',
-        'Kurtki i p\u0142aszcze',
-        'Bielizna i skarpety',
-        'Pi\u017Camy',
-        'Spodenki',
-        '=== Akcesoria ===',
-        'Torebki',
-        'Plecaki',
-        'Czapki',
-        'Okulary przeciws\u0142oneczne',
-        'R\u0119kawiczki',
-        'Czapki zimowe'
-      ]
-    > &
-      Attribute.Required;
-    product_colors: Attribute.Component<'colors.product-color', true> &
-      Attribute.Required;
-    product_description_dropdown: Attribute.RichText & Attribute.Required;
-    product_delivery_dropdown: Attribute.RichText & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::product.product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::product.product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -904,6 +904,8 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::bestseller.bestseller': ApiBestsellerBestseller;
+      'api::product.product': ApiProductProduct;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -912,8 +914,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::bestseller.bestseller': ApiBestsellerBestseller;
-      'api::product.product': ApiProductProduct;
     }
   }
 }

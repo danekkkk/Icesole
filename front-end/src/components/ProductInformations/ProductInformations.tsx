@@ -1,5 +1,5 @@
 import styles from "./ProductInformations.module.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import RULER from "../../assets/RulerIcon.svg";
 import CART_ICON from "../../assets/CartIcon.tsx";
@@ -10,24 +10,113 @@ import { Button } from "../Button/Button";
 import { BUTTON_VARIANTS } from "../../constants/enums";
 import { SIZES_FILTER } from "../../constants/filters";
 import { ChooseSize } from "../ChooseSize/ChooseSize";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { IProduct } from "../../constants/interfaces.ts";
+import {
+  ICartContext,
+  ICartProduct,
+  IProduct,
+} from "../../constants/interfaces.ts";
+import { CartContext } from "../../contexts/CartContext.ts";
+import { CartModal } from "../CartDropdown/CartDropdown.tsx";
 
-interface IProductInformations extends IProduct{
-    activeColor:  string;
-    productImages: Record<string, string[]>
-    setActiveColor: (color: string) => void;
-    setActiveImage: (index: number) => void;
+interface IProductInformations extends IProduct {
+  activeColor: string;
+  productImages: Record<string, string[]>;
+  setActiveColor: (color: string) => void;
+  setActiveImage: (index: number) => void;
 }
 
-export function ProductInformations({product, activeColor, productImages, setActiveColor, setActiveImage}: IProductInformations) {
-  const [activeSize, setActiveSize] = useState<number>(-1);
+export function ProductInformations({
+  product,
+  activeColor,
+  productImages,
+  setActiveColor,
+  setActiveImage,
+}: IProductInformations) {
+  const [activeSize, setActiveSize] = useState<string>("");
+  const [activeSizeIndex, setActiveSizeIndex] = useState<number>(-1);
   const [activeColorIndex, setActiveColorIndex] = useState<number>(0);
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
   const [isDescriptionShown, setIsDescriptionShown] = useState<boolean>(false);
   const [isDeliveryShown, setIsDeliveryShown] = useState<boolean>(false);
-console.log(productImages)
+  const [error, setError] = useState<boolean>(false);
+  const [addedProduct, setAddedProduct] = useState<any>(undefined);
+  const [showCartDropdown, setShowCartDropdown] = useState<boolean>(false);
+
+  const { product_id } = useParams();
+
+  const cartContext = useContext(CartContext) as ICartContext | null;
+
+  let cartItems: ICartProduct[] = [];
+  let setCartItems: React.Dispatch<React.SetStateAction<ICartProduct[]>>;
+
+  if (cartContext) {
+    ({ cartItems, setCartItems } = cartContext);
+  }
+
+  const addToCart = () => {
+    if (activeSizeIndex !== -1) {
+      let itemAlreadyInCart = false;
+      setCartItems((prevCartItems: ICartProduct[]) => {
+        const updatedCartItems = prevCartItems.map((item: any) => {
+          if (
+            item.product_id === product_id &&
+            item.selectedColor === activeColor &&
+            item.selectedSize === SIZES_FILTER.filterBy[activeSizeIndex]
+          ) {
+            itemAlreadyInCart = true;
+            if (
+              item.quantity <
+              product.product_colors[activeColorIndex][activeSize]
+            ) {
+              if (
+                item.quantity + 1 ===
+                product.product_colors[activeColorIndex][activeSize]
+              ) {
+                product.product_colors[activeColorIndex][activeSize] = 0;
+                setActiveSizeIndex(-1);
+              }
+              return { ...item, quantity: item.quantity + 1 };
+            } else {
+              return item;
+            }
+          } else {
+            return item;
+          }
+        });
+
+        if (!itemAlreadyInCart) {
+          const selectedProduct = {
+            ...product,
+            product_id: product_id,
+            selectedColor: activeColor,
+            selectedSize: SIZES_FILTER.filterBy[activeSizeIndex],
+            quantity: 1,
+            product_image: product.product_colors,
+          };
+          const updatedCart = [...updatedCartItems, selectedProduct];
+          localStorage.setItem("cart_products", JSON.stringify(updatedCart));
+          setAddedProduct(selectedProduct);
+          setShowCartDropdown(true);
+          setTimeout(() => {
+            setShowCartDropdown(false);
+            setAddedProduct(undefined);
+          }, 2500);
+          return updatedCart;
+        } else {
+          localStorage.setItem(
+            "cart_products",
+            JSON.stringify(updatedCartItems)
+          );
+          return updatedCartItems;
+        }
+      });
+    } else {
+      setError(true);
+    }
+  };
+
   return (
     <>
       <h4 className={styles.productName}>{product.product_name}</h4>
@@ -60,7 +149,7 @@ console.log(productImages)
               onClick={() => {
                 setActiveColor(color);
                 setActiveColorIndex(index);
-                setActiveSize(-1);
+                setActiveSizeIndex(-1);
                 setActiveImage(0);
               }}
             />
@@ -69,27 +158,36 @@ console.log(productImages)
       <h5>
         Rozmiar:{" "}
         <span className={styles.productInfoSpan}>
-          {SIZES_FILTER.filterBy[activeSize]}
+          {SIZES_FILTER.filterBy[activeSizeIndex]}
         </span>
       </h5>
-      <div className={styles.productSizesList}>
-        {SIZES_FILTER.filterBy.map((size, index) => {
-          return (
-            <ChooseSize
-              key={index}
-              size={size}
-              isActive={activeSize == index}
-              setActiveSize={() => setActiveSize(index)}
-              isAvailable={
-                product.product_colors[activeColorIndex][
-                  size as keyof (typeof product.product_colors)[typeof activeColorIndex]
-                ] !== 0
-              }
-            />
-          );
-        })}
+
+      <div>
+        <div className={styles.productSizesList}>
+          {SIZES_FILTER.filterBy.map((size, index) => {
+            return (
+              <ChooseSize
+                key={index}
+                size={size}
+                isActive={activeSizeIndex == index}
+                setActiveSize={() => {
+                  setActiveSizeIndex(index);
+                  setActiveSize(size);
+                }}
+                isAvailable={
+                  product.product_colors[activeColorIndex][
+                    size as keyof (typeof product.product_colors)[typeof activeColorIndex]
+                  ] !== 0
+                }
+                isError={error}
+                setError={() => setError(false)}
+              />
+            );
+          })}
+        </div>
+        {error && <p className={styles.error}>Proszę wybrać rozmiar!</p>}
       </div>
-      
+
       <Link to={"#"} className={styles.sizesGuide}>
         <img src={RULER} alt="Linijka" /> Przewodnik po rozmiarach
       </Link>
@@ -97,11 +195,12 @@ console.log(productImages)
       <div className={styles.productCTA}>
         <Button
           variant={BUTTON_VARIANTS.blackNWhite}
-          onClick={() => alert("Dodaj do koszyka")}
+          onClick={addToCart}
           className={styles.addToCart}
         >
           <CART_ICON strokeColor="var(--color-grey-100)" /> Dodaj do koszyka
         </Button>
+
         <Button
           variant={BUTTON_VARIANTS.secondary}
           onClick={() => setIsFavourite((prevValue) => !prevValue)}
@@ -142,6 +241,14 @@ console.log(productImages)
           )}
         </div>
       </div>
+
+      {showCartDropdown && <div className={styles.addedProduct}>
+        <CartModal
+          showCartDropdown={true}
+          type="modal"
+          addedProduct={addedProduct}
+        />
+      </div>}
     </>
   );
 }

@@ -1,0 +1,50 @@
+.productRow {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  padding: 14px 44px;
+}
+
+.productThumbnailCol {
+  width: 102px;
+  height: 102px;
+}
+
+.productThumbnailCol img {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.productInfoCol {
+  width: calc(80% - 102px - 4px);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.productPriceCol {
+  margin-left: auto;
+}
+
+.productPrice {
+  font-size: var(--font-heading-5);
+  color: var(--color-grey-900);
+  font-weight: 700;
+}
+
+.priceDiscounted {
+  color: var(--color-discount);
+  position: relative;
+}
+
+.priceDiscounted > span {
+  position: absolute;
+  top: -10px;
+  right: 0;
+  font-size: var(--font-paragraph-12);
+  color: var(--color-grey-900);
+  text-decoration: line-through;
+}

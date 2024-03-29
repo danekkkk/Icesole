@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CartContext } from "../../contexts/CartContext";
 import { CategoryDropdown } from "../CategoryDropdown/CategoryDropdown";
 import { Footer } from "../Footer/Footer";
 import { IconMenu } from "../IconMenu/IconMenu";
@@ -9,6 +10,7 @@ import { Topbar } from "../Topbar/Topbar";
 
 import styles from "./Layout.module.css";
 import { Outlet } from "react-router-dom";
+import { ICartProduct } from "@/constants/interfaces";
 
 
 export function Layout() {
@@ -16,8 +18,11 @@ export function Layout() {
     useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState<string>("");
 
+  const [cartItems, setCartItems] = useState<ICartProduct[]>(localStorage["cart_products"] ? JSON.parse(localStorage["cart_products"]) : []);
+
   return (
     <>
+    <CartContext.Provider value={{cartItems, setCartItems}}>
       <Topbar />
       <Navbar>
         <Logo />
@@ -45,6 +50,8 @@ export function Layout() {
         <Outlet />
       </main>
       <Footer />
+    </CartContext.Provider>
     </>
   );
+  
 }

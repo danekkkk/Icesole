@@ -30,7 +30,7 @@ export function useFetchProducts(
 
         if (PRODUCT_CATEGORY == undefined) {
           PRODUCT_CATEGORY = PATH_TO_ENDPOINT_MAPPING[1];
-          navigate(`/kobiety`);
+          navigate(`/`);
         }
 
         let url = `${BACK_END_URL}/products?filters[product_category][$eq]=${PRODUCT_CATEGORY}`;
@@ -38,7 +38,7 @@ export function useFetchProducts(
         if (subcategory != undefined) {
           let PRODUCT_SUBCATEGORY = SUBPATH_TO_ENDPOINT_MAPPING[subcategory];
           if (PRODUCT_SUBCATEGORY == undefined) {
-            navigate(`/kobiety`);
+            navigate(`/`);
           } else {
             url = `${url}&filters[product_subcategory][$eq]=${PRODUCT_SUBCATEGORY}`;
           }
@@ -47,7 +47,7 @@ export function useFetchProducts(
             let PRODUCT_SUBSUBCATEGORY =
               SUBSUBPATH_TO_ENDPOINT_MAPPING[subsubcategory];
             if (PRODUCT_SUBSUBCATEGORY == undefined) {
-              navigate(`/kobiety}`);
+              navigate(`/}`);
             } else {
               url = `${url}&filters[product_subsubcategory][$eq]=${PRODUCT_SUBSUBCATEGORY}`;
             }

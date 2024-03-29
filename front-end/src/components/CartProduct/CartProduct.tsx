@@ -1,45 +1,38 @@
+import { ICartProduct } from "../../constants/interfaces";
 import BIN_ICON from "../../assets/BinIcon.svg";
 import styles from "./CartProduct.module.css";
+import { useFetchProductImage } from "@/hooks/useFetchProductImage";
 
-interface IProduct {
-  product: {
-    id: number;
-    name: string;
-    price: number;
-    priceDiscounted: number;
-    quantity: number;
-    size: string;
-    color: string;
-    description: string;
-    imgSrc: string;
-    isDiscounted: boolean;
-  };
-  onDeleteProduct: (id: number) => void;
-  onUpdateQuantity: (id: number, newQuantity: number) => void;
+interface CartProduct extends ICartProduct {
+  onDeleteProduct: (id: number, selectedSize: string, selectedColor: string) => void;
+  onUpdateQuantity: (id: number, newQuantity: number, selectedSize: string, selectedColor: string) => void;
 }
 
 export function CartProduct({
   product,
   onDeleteProduct,
   onUpdateQuantity,
-}: IProduct) {
+}: CartProduct) {
+
+  const productImage = useFetchProductImage(product.product_colors);
+
   return (
     <div className={styles.productRow}>
       <div className={styles.productThumbnailCol}>
-        <img src={product.imgSrc} alt="zdjecie produktu" />
+        <img src={productImage?.[product.selectedColor]?.[0]} alt="zdjecie produktu" />
       </div>
       <div className={styles.productInfoCol}>
-        <h5>{product.name}</h5>
-        <p>{product.description}</p>
-        <p>Rozmiar: {product.size}</p>
-        <p>Kolor: {product.color}</p>
+        <h5>{product.product_name}</h5>
+        <p>{product.product_description}</p>
+        <p>Rozmiar: {product.selectedSize}</p>
+        <p>Kolor: {product.selectedColor}</p>
         <div className={styles.productQuantity}>
           Ilość:
           <select
             className={styles.selectQuantity}
             value={product.quantity}
             onChange={(e) =>
-              onUpdateQuantity(product.id, parseInt(e.target.value))
+              onUpdateQuantity(product.product_id, parseInt(e.target.value), product.selectedSize, product.selectedColor)
             }
           >
             {[1, 2, 3, 4, 5, 6].map((value) => (
@@ -50,7 +43,7 @@ export function CartProduct({
           </select>
         </div>
         <div>
-          <button className={styles.deleteProductBtn} onClick={() => onDeleteProduct(product.id)}>
+          <button className={styles.deleteProductBtn} onClick={() => onDeleteProduct(product.product_id, product.selectedSize, product.selectedColor)}>
             <img src={BIN_ICON} alt="Usuń" />
             Usuń
           </button>
@@ -59,16 +52,16 @@ export function CartProduct({
       <div className={styles.productPriceCol}>
         <h5
           className={`${styles.productPrice} ${
-            product.isDiscounted ? styles.priceDiscounted : ""
+            product.product_isDiscounted ? styles.priceDiscounted : ""
           }`}
         >
-          {(product.isDiscounted
-            ? product.priceDiscounted * product.quantity
-            : product.price * product.quantity
+          {(product.product_isDiscounted && product.product_price_discounted
+            ? product.product_price_discounted * parseInt(product.quantity)
+            : product.product_price * parseInt(product.quantity)
           ).toFixed(2)}
           zł
-          {product.isDiscounted ? (
-            <span>{(product.price * product.quantity).toFixed(2)}zł</span>
+          {product.product_isDiscounted ? (
+            <span>{(product.product_price * parseInt(product.quantity)).toFixed(2)}zł</span>
           ) : null}
         </h5>
       </div>

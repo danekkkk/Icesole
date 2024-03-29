@@ -20,7 +20,6 @@ interface IProductColor {
 
 export function useFetchProductImage(productColors: IProductColor[], isLoading?: boolean) {
   const [productImagesByColor, setProductImagesByColor] = useState<Record<string, string[]>>({});
-
   useEffect(() => {
     const fetchProductImage = async () => {
       try {

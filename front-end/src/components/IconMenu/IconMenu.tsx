@@ -1,15 +1,24 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import HEART_ICON_OUTLINED from "../../assets/Heart_Icons/HeartIcon_Outlined.svg";
 import CART_ICON from "../../assets/CartIcon.tsx";
 import styles from "./IconMenu.module.css";
 import { CartModal } from "../CartDropdown/CartDropdown";
+import { CartContext } from "@/contexts/CartContext.ts";
+import { ICartContext, ICartProduct } from "../../constants/interfaces.ts";
 
 export function IconMenu() {
   const [showCartDropdown, setShowCartDropdown] = useState<boolean>(false);
+  const cartContext = useContext(CartContext) as ICartContext | null;
+  
+  let cartItems: ICartProduct[] = [];
+  let setCartItems: React.Dispatch<React.SetStateAction<ICartProduct[]>>;
+  
+  if (cartContext) {
+    ({ cartItems, setCartItems } = cartContext);
+  }
 
-  const cartItems = 2;
   const favouriteItems = 1;
 
   return (
@@ -21,8 +30,8 @@ export function IconMenu() {
           onMouseLeave={() => setShowCartDropdown(false)}
         >
           <CART_ICON />
-          {cartItems > 0 && (
-            <span className={styles.numberOfProductsInCart}>{cartItems}</span>
+          {cartItems.length > 0 && (
+            <span className={styles.numberOfProductsInCart}>{cartItems.length}</span>
           )}
         </Link>
         <CartModal
