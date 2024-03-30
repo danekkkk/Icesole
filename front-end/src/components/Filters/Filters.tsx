@@ -11,6 +11,7 @@ interface IFilter {
   iconOrientation?: "right" | "left";
   icon?: JSX.Element;
   hasBorder?: boolean;
+  onFilterChange: (filterName: string, value: string | string[]) => void;
 }
 
 export function Filters({
@@ -19,6 +20,7 @@ export function Filters({
   iconOrientation = "right",
   icon = <SELECT_DOWN />,
   hasBorder = true,
+  onFilterChange,
 }: IFilter) {
   const [showFilters, setShowFilters] = useState<boolean>(false);
   const filtersRef = useRef<HTMLDivElement>(null);
@@ -35,6 +37,28 @@ export function Filters({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleFilterChange = (value: string) => {
+    switch(filter.filterName) {
+      case "Rozmiar":
+        onFilterChange("sizes", value);
+        break;
+      case "Marka":
+        onFilterChange("brands", value);
+        break;
+      case "Kolor":
+        onFilterChange("colors", value);
+        break;
+      case "Cena":
+        onFilterChange("price", value);
+        break;
+      default:
+        onFilterChange("sortBy", value);
+        break;
+    }
+  };
+  
+  
 
   return (
     <div ref={filtersRef} className={styles.filterContainer}>
@@ -53,22 +77,23 @@ export function Filters({
         )}
       </div>
       
-        <div style={{visibility: showFilters ? "visible" : "hidden"}} className={styles.filtersDropdown}>
-          <form action="">
-            {filter.filterBy.map((filter, index) => {
-              return (
-                <div className={styles.filterRow} key={`${filter}#${index}`}>
-                  <input
-                    type={multiple ? "checkbox" : "radio"}
-                    name="sizes"
-                    id={`${filter}#${index}`}
-                  />
-                  <label htmlFor={`${filter}#${index}`}>{filter}</label>
-                </div>
-              );
-            })}
-          </form>
-        </div>
+      <div style={{ visibility: showFilters ? "visible" : "hidden" }} className={styles.filtersDropdown}>
+        <form action="">
+          {filter.filterBy.map((filter, index) => {
+            return (
+              <div className={styles.filterRow} key={`${filter}#${index}`}>
+                <input
+                  type={multiple ? "checkbox" : "radio"}
+                  name="sizes"
+                  id={`${filter}#${index}`}
+                  onChange={() => handleFilterChange(filter)}
+                />
+                <label htmlFor={`${filter}#${index}`}>{filter}</label>
+              </div>
+            );
+          })}
+        </form>
+      </div>
     </div>
   );
 }

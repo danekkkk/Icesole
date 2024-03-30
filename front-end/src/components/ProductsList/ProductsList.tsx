@@ -21,6 +21,14 @@ import { CircularProgress } from "@mui/material";
 import { Filters } from "../Filters/Filters";
 
 export function ProductsList() {
+  const [filters, setFilters] = useState({
+    sizes: [],
+    brands: [],
+    colors: [],
+    price: "",
+    sortBy: "",
+  });
+
   const [page, setPage] = useState<number>(1);
   const { category, subcategory, subsubcategory } = useParams();
 
@@ -34,18 +42,94 @@ export function ProductsList() {
     category || "",
     page,
     subcategory || undefined,
-    subsubcategory || undefined
+    subsubcategory || undefined,
+    filters || undefined
   );
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
     setPage(1);
-  }, [category, subcategory, subsubcategory]);
+  }, [category, subcategory, subsubcategory, filters]);
 
   const fetchMoreData = () => {
     if (page < totalPages) {
       setPage((prevPage) => prevPage + 1);
     }
+  };
+
+  const handleFilterChange = (filterName: string, value: string | string[]) => {
+    setFilters((prevFilters) => {
+      const newFilters = { ...prevFilters };
+
+      if (
+        filterName === "sizes" ||
+        filterName === "brands" ||
+        filterName === "colors"
+      ) {
+        const index = newFilters[filterName].indexOf(value);
+        if (index === -1) {
+          newFilters[filterName] = [...newFilters[filterName], value];
+        } else {
+          newFilters[filterName] = newFilters[filterName].filter(
+            (item) => item !== value
+          );
+        }
+      } else {
+        newFilters[filterName] = value;
+      }
+      return newFilters;
+    });
+  };
+
+  const anyFiltredProducts = (displayedProducts: any) => {
+    const selectedSizes = filters && filters.sizes ? filters.sizes : [];
+    const selectedColors = filters && filters.colors ? filters.colors : [];
+
+    for (const product of displayedProducts) {
+      const hasSelectedSize =
+        selectedSizes.length === 0 ||
+        selectedSizes.some((size: string) => {
+          return product.attributes.product_colors[0][size] > 0;
+        });
+
+      const hasSelectedColor =
+        selectedColors.length === 0 ||
+        selectedColors.some((color: string) => {
+          return product.attributes.product_colors[0].product_color === color;
+        });
+
+      if (hasSelectedSize && hasSelectedColor) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  const countFilteredProducts = (displayedProducts: any[]) => {
+    const selectedSizes = filters && filters.sizes ? filters.sizes : [];
+    const selectedColors = filters && filters.colors ? filters.colors : [];
+    let count = 0;
+
+    for (const product of displayedProducts) {
+      const hasSelectedSize =
+        selectedSizes.length === 0 ||
+        selectedSizes.some((size: string) => {
+          return product.attributes.product_colors[0][size] > 0;
+        });
+
+      const hasSelectedColor =
+        selectedColors.length === 0 ||
+        selectedColors.some((color: string) => {
+          return product.attributes.product_colors[0].product_color === color;
+        });
+
+      if (hasSelectedSize && hasSelectedColor) {
+        count++;
+      }
+    }
+
+    return count;
   };
 
   return (
@@ -56,10 +140,22 @@ export function ProductsList() {
       <Breadcrumb />
       <div className={styles.filtersContainer}>
         <div className={styles.filterBy}>
-          <Filters filter={SIZES_FILTER} multiple />
-          <Filters filter={BRANDS_FILTER} multiple />
-          <Filters filter={COLORS_FILTER} multiple />
-          <Filters filter={PRICES_FILTER} />
+          <Filters
+            filter={SIZES_FILTER}
+            multiple
+            onFilterChange={handleFilterChange}
+          />
+          <Filters
+            filter={BRANDS_FILTER}
+            multiple
+            onFilterChange={handleFilterChange}
+          />
+          <Filters
+            filter={COLORS_FILTER}
+            multiple
+            onFilterChange={handleFilterChange}
+          />
+          <Filters filter={PRICES_FILTER} onFilterChange={handleFilterChange} />
         </div>
         <div className={styles.orderBy}>
           <Filters
@@ -67,12 +163,23 @@ export function ProductsList() {
             iconOrientation="left"
             icon={FILTER_ICON()}
             hasBorder={false}
+            onFilterChange={handleFilterChange}
           />
         </div>
       </div>
       <h4>
-        {totalProducts} {pluralizeProducts(totalProducts)}
+        {!anyFiltredProducts(displayedProducts)
+          ? 0
+          : filters.colors.length > 0 || filters.sizes.length > 0
+          ? countFilteredProducts(displayedProducts)
+          : totalProducts}{" "}
+        {!anyFiltredProducts(displayedProducts)
+          ? pluralizeProducts(0)
+          : filters.colors.length > 0 || filters.sizes.length > 0
+          ? pluralizeProducts(countFilteredProducts(displayedProducts))
+          : pluralizeProducts(totalProducts)}
       </h4>
+
       <InfiniteScroll
         dataLength={displayedProducts.length}
         next={fetchMoreData}
@@ -88,21 +195,55 @@ export function ProductsList() {
       >
         {displayedProducts.length ? (
           <div className={styles.productsList}>
-            {displayedProducts.map((product, index) => (
-              <Product
-                key={index}
-                product_id={product.id}
-                product={product.attributes}
-                isLoading={
-                  isLoading &&
-                  index >= lastLength &&
-                  index < displayedProducts.length
-                }
-                fullWidthMobile={true}
-              />
-            ))}
+            {displayedProducts.map((product, index) => {
+              const selectedSizes =
+                filters && filters.sizes ? filters.sizes : [];
+              const selectedColors =
+                filters && filters.colors ? filters.colors : [];
+
+              const hasSelectedSize =
+                selectedSizes.length === 0 ||
+                selectedSizes.some((size: string) => {
+                  return product.attributes.product_colors[0][size] > 0;
+                });
+
+              const hasSelectedColor =
+                selectedColors.length === 0 ||
+                selectedColors.some((color: string) => {
+                  return (
+                    product.attributes.product_colors[0].product_color === color
+                  );
+                });
+
+              if (hasSelectedSize && hasSelectedColor) {
+                return (
+                  <Product
+                    key={index}
+                    product_id={product.id}
+                    product={product.attributes}
+                    isLoading={
+                      isLoading &&
+                      index >= lastLength &&
+                      index < displayedProducts.length
+                    }
+                    fullWidthMobile={true}
+                  />
+                );
+              } else {
+                return null;
+              }
+            })}
           </div>
         ) : (
+          <div className={styles.noResults}>
+            <h4>Przepraszamy</h4>
+            <div>
+              <p>Brak produktów z podanymi kryteriami wyszukiwania.</p>
+            </div>
+          </div>
+        )}
+
+        {!anyFiltredProducts(displayedProducts) && (
           <div className={styles.noResults}>
             <h4>Przepraszamy</h4>
             <div>

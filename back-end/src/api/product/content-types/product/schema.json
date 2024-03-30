@@ -93,6 +93,21 @@
     "product_delivery_dropdown": {
       "type": "richtext",
       "required": true
+    },
+    "product_brand": {
+      "type": "enumeration",
+      "enum": [
+        "Nike",
+        "Puma",
+        "The North Face",
+        "Adidas",
+        "Levi's",
+        "Gucci",
+        "H&M",
+        "Reserved",
+        "Calvin Klein"
+      ],
+      "required": true
     }
   }
 }

@@ -65,6 +65,11 @@
     grid-template-columns: 1fr 1fr;
     gap: 18px 18px;
   }
+  .filtersContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
 }
 
 /* Smartphones ----------- */
@@ -98,6 +103,13 @@
 
 /* Smartphones  */
 @media only screen and (max-width: 576px) {
+  .filtersContainer {
+    gap: 8px;
+  }
+  .filterBy {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 }
 
 @media only screen and (max-width: 460px) {

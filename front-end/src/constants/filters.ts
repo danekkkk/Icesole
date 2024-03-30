@@ -15,7 +15,7 @@ export const COLORS_FILTER = {
 
 export const PRICES_FILTER = {
     filterName: "Cena",
-    filterBy: ["150zł - 300zł", "300zł - 500zł", "500zł - 1000zł", "ponad 1000zł"],
+    filterBy: ["50zł - 150zł", "150zł - 300zł", "300zł - 500zł", "500zł - 1000zł", "ponad 1000zł", "Dowolna"],
 };
 
 export const ORDER_BY = {
